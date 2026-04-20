@@ -190,14 +190,14 @@ function WhyHire() {
     },
     { 
       name: 'Pascal', 
-      role: 'Frontend Specialist', 
+      role: 'Full Stack Developer', 
       image: 'https://picsum.photos/seed/person3/200/200', 
       bio: 'Bridging the gap between design and production-ready code.',
       socials: { twitter: '#', github: '#' }
     },
     { 
       name: 'Victor', 
-      role: 'Product Strategist', 
+      role: 'Frontend Developer', 
       image: 'https://picsum.photos/seed/person4/200/200', 
       bio: 'Defining the roadmap and ensuring we ship what truly matters.',
       socials: { linkedin: '#', twitter: '#' }
