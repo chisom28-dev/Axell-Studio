@@ -1,5 +1,7 @@
+
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import { ArrowRight, Code2, LayoutDashboard, Palette, Share2 } from "lucide-react";
+import { ArrowRight, Code2, LayoutDashboard, Twitter, Github, Linkedin, ExternalLink, Palette, Share2 } from "lucide-react";
 import { Button } from "../components/ui/Button";
 import { ProjectCard } from "../components/ui/ProjectCard";
 
@@ -161,9 +163,51 @@ function Proof() {
   );
 }
 
+
 function WhyHire() {
+  // 1. Data array to easily change images, roles, and socials
+  const team = [
+    { 
+      name: 'MacAnthony', 
+      role: 'Founder', 
+      image: 'https://picsum.photos/seed/founder/200/200', 
+      bio: 'Visionary behind AxellStudio. Turning complex problems into elegant code.',
+      socials: { twitter: '#', github: '#', linkedin: '#' }
+    },
+    { 
+      name: 'Liberty', 
+      role: 'Lead Designer', 
+      image: 'https://picsum.photos/seed/person1/200/200', 
+      bio: 'Crafting intuitive user experiences with a focus on minimalism.',
+      socials: { twitter: '#', linkedin: '#' }
+    },
+    { 
+      name: 'Chisom', 
+      role: 'Lead Developer', 
+      image: 'https://picsum.photos/seed/person2/200/200', 
+      bio: 'Scaling infrastructure and ensuring data integrity at every node.',
+      socials: { github: '#', linkedin: '#' }
+    },
+    { 
+      name: 'Pascal', 
+      role: 'Frontend Specialist', 
+      image: 'https://picsum.photos/seed/person3/200/200', 
+      bio: 'Bridging the gap between design and production-ready code.',
+      socials: { twitter: '#', github: '#' }
+    },
+    { 
+      name: 'Victor', 
+      role: 'Product Strategist', 
+      image: 'https://picsum.photos/seed/person4/200/200', 
+      bio: 'Defining the roadmap and ensuring we ship what truly matters.',
+      socials: { linkedin: '#', twitter: '#' }
+    },
+  ];
+
+  const [hoveredNode, setHoveredNode] = useState(null);
+
   return (
-    <section className="py-24 md:py-32">
+    <section className="py-24 md:py-32 bg-black text-white overflow-visible">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <div className="grid gap-12 md:grid-cols-2 md:items-center">
           <div>
@@ -176,7 +220,7 @@ function WhyHire() {
             </p>
           </div>
           <div className="relative rounded-3xl bg-[#111] border border-white/5 p-8 md:p-12">
-            <Share2 className="text-brand mb-8" size={32} />
+            <Share2 className="text-brand mb-8 text-blue-500" size={32} />
             <blockquote className="text-2xl font-medium italic leading-relaxed text-white">
               "Connected builders. Inside the brackets, we ship."
             </blockquote>
@@ -188,15 +232,42 @@ function WhyHire() {
           <p className="mb-12 text-gray-400">Expert hands, strategic minds, and relentless drive.</p>
           
           <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-            {['You', 'Ada', 'Ahmed', 'Tunde', 'Kemi'].map((name, i) => (
-              <div key={name} className="flex flex-col items-center gap-4">
-                <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-white/10 bg-[#111]">
-                  <img src={`https://picsum.photos/seed/person${i}/200/200`} alt={name} className="h-full w-full object-cover grayscale" referrerPolicy="no-referrer" />
-                  {i > 0 && <div className="absolute top-0 right-0 h-3 w-3 rounded-full bg-brand" />}
+            {team.map((member, i) => (
+              <div 
+                key={member.name} 
+                className="group relative flex flex-col items-center gap-4 cursor-pointer"
+                onMouseEnter={() => setHoveredNode(member.name)}
+                onMouseLeave={() => setHoveredNode(null)}
+              >
+                {/* Hover Card */}
+                {hoveredNode === member.name && (
+                  <div className="absolute bottom-full mb-4 w-64 z-50 animate-in fade-in zoom-in duration-200">
+                    <div className="bg-[#1a1a1a] border border-white/10 p-4 rounded-xl shadow-2xl text-left">
+                      <p className="text-sm text-gray-300 mb-3">{member.bio}</p>
+                      <div className="flex gap-3 border-t border-white/5 pt-3">
+                        {member.socials.twitter && <Twitter size={16} className="text-gray-500 hover:text-blue-400" />}
+                        {member.socials.github && <Github size={16} className="text-gray-500 hover:text-white" />}
+                        {member.socials.linkedin && <Linkedin size={16} className="text-gray-500 hover:text-blue-600" />}
+                      </div>
+                    </div>
+                    {/* Tooltip Arrow */}
+                    <div className="w-3 h-3 bg-[#1a1a1a] border-r border-b border-white/10 rotate-45 mx-auto -mt-1.5"></div>
+                  </div>
+                )}
+
+                <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-white/10 bg-[#111] transition-transform group-hover:scale-110 group-hover:border-blue-500">
+                  <img 
+                    src={member.image} 
+                    alt={member.name} 
+                    className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all" 
+                    referrerPolicy="no-referrer" 
+                  />
+                  {i > 0 && <div className="absolute top-0 right-0 h-3 w-3 rounded-full bg-blue-500" />}
                 </div>
+                
                 <div className="text-center">
-                  <p className="font-bold text-white">{name}</p>
-                  <p className="text-xs text-brand">Builder</p>
+                  <p className="font-bold text-white">{member.name}</p>
+                  <p className="text-xs text-blue-500 uppercase tracking-wider font-semibold">{member.role}</p>
                 </div>
               </div>
             ))}
